@@ -10,8 +10,8 @@
 /users/delete -> Delete user
 
 
-/video/watch -> Watch Video
-/video/edit -> Edit Video
-/video/delete -> Delete Video
-/video/comments -> Comment on a video
-/video/comments/delete ->  Delete A Comment of a Video
+/videos/watch -> Watch Video
+/videos/edit -> Edit Video
+/videos/delete -> Delete Video
+/videos/comments -> Comment on a video
+/videos/comments/delete ->  Delete A Comment of a Video
