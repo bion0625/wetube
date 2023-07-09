@@ -1,0 +1,7 @@
+extends base.pug
+
+block content 
+    h3 hello from upload
+    form(method="POST") 
+        input(name="title", placeholder="Video Title", required)
+        input(value="Upload Video", type="submit")
