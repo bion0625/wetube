@@ -28,7 +28,7 @@ export const postEdit = async (req, res) => {
     if(!Video.exists({_id:id})){
         return res.render("404", {pageTitle:"Video not found"});
     }
-    await Video.findOneAndUpdate({_id: id}, {
+    await Video.findByIdAndUpdate(id, {
         title, 
         description, 
         hashtags:hashtags.split(",").map(word => word.startsWith("#") ? word : `#${word}`)
@@ -46,7 +46,7 @@ export const postUpload = async (req, res) => {
         await Video.create({
             title,
             description,
-            hashtags: hashtags.split(",").map(word => word.startsWith("#") ? word : `#${word}`),
+            hashtags,
         });
         return res.redirect(`/`);
     }catch(error){
