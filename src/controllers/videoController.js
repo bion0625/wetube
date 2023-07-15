@@ -74,7 +74,7 @@ export const search = async (req, res) => {
     if(keyword){
         videos = await Video.find({
             title:{
-                $regex: new RegExp(keyword, "i") // like '%keyword%'
+                $regex: new RegExp(keyword, "i") // like '%keyword%' i는 대소문자 모두 적용
                 // $regex: new RegExp(`^${keyword}`, "i") // like 'keyword%'
                 // $regex: new RegExp(`${keyword}$`, "i") // like '%keyword'
             }
