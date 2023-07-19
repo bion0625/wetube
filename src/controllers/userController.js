@@ -17,7 +17,8 @@ export const postJoin = async (req, res) => {
             email, username, password, name, location
         });
         return res.redirect("/login");
-    }catch{
+    }catch (error){
+        console.log(error);
         return res.status(400).render("join", {
             pageTitle: pageTitle,
             errorMessage: error._message
@@ -117,5 +118,42 @@ export const logout = (req, res) => {
     return res.redirect("/");
 };
 
-export const edit = (req, res) => res.send("Edit User");
+export const getEdit = (req, res) => {
+    return res.render("edit-profile", {pageTitle: "Edit Profile"});
+};
+export const postEdit = async (req, res) => {
+    const {
+        session : {
+            user: { _id }
+        }, 
+        body: { name, email, username, location }
+    } = req;
+    try{
+        const updatedUser = await User.findByIdAndUpdate(_id, {
+            name, 
+            email, 
+            username, 
+            location
+        },
+        { new : true });
+        // req.session.user = {
+        //     ...req.session.user,
+        //     name, 
+        //     email, 
+        //     username, 
+        //     location
+        // };
+        req.session.user = updatedUser;
+        return res.redirect("/users/edit");
+    }catch(error){
+        console.log("msg: ",error.codeName);
+        console.log(error);
+        const modifyText = req.session.user.username !== username && req.session.user.email !== email ? "email and username" : req.session.user.username !== username ? "username" : "email";
+        let errorMassage = `This ${modifyText} is already taken.`;
+        if(error.codeName !== "DuplicateKey"){
+            errorMassage = "call the admin!";
+        }
+        return res.status(400).render("edit-profile", {pageTitle: "Edit Profile", errorMassage});
+    }
+};
 export const see = (req, res) => res.send("See User");
