@@ -18,7 +18,6 @@ export const postJoin = async (req, res) => {
         });
         return res.redirect("/login");
     }catch (error){
-        console.log(error);
         return res.status(400).render("join", {
             pageTitle: pageTitle,
             errorMessage: error._message
@@ -146,8 +145,6 @@ export const postEdit = async (req, res) => {
         req.session.user = updatedUser;
         return res.redirect("/users/edit");
     }catch(error){
-        console.log("msg: ",error.codeName);
-        console.log(error);
         const modifyText = req.session.user.username !== username && req.session.user.email !== email ? "email and username" : req.session.user.username !== username ? "username" : "email";
         let errorMassage = `This ${modifyText} is already taken.`;
         if(error.codeName !== "DuplicateKey"){
