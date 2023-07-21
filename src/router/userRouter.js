@@ -9,7 +9,7 @@ import {
     getChangePassword,
     postChangePassword
 } from "../controllers/userController";
-import { protectorMiddleware, publicOnlyMiddleware, uploaFiles } from "../middleware";
+import { avatarUpload, protectorMiddleware, publicOnlyMiddleware } from "../middleware";
 
 const userRouter = express.Router();
 
@@ -17,7 +17,7 @@ userRouter.get("/logout", protectorMiddleware, logout);
 userRouter.route("/edit")
     .all(protectorMiddleware)
     .get(getEdit)
-    .post(uploaFiles.single("avatar"), postEdit);
+    .post(avatarUpload.single("avatar"), postEdit);
 userRouter.get("/githube/start", publicOnlyMiddleware, startGithubeLogin);
 userRouter.get("/githube/finish", publicOnlyMiddleware, finishGithubeLogin);
 userRouter
