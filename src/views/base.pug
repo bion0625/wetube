@@ -17,9 +17,9 @@ html(land="ko")
                         li 
                             a(href="/videos/upload") Upload Video 
                         li 
-                            a(href="/users/edit") Edit profile 
+                            a(href=`/users/${loggedInUser._id}`) My Profile
                         li 
-                            a(href="my-profile") #{loggedInUser.name}'s profile
+                            a(href="/users/edit") Edit profile 
                         li 
                             a(href="/users/logout") LOG OUT
                     else
