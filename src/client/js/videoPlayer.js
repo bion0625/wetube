@@ -109,3 +109,9 @@ videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+video.addEventListener("click", handlePlayClick);
+document.body.onkeyup = function(e){
+    if(e.keyCode){
+        handlePlayClick();
+    }
+}
