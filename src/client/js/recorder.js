@@ -15,17 +15,37 @@ const handleDownload = async() => {
 
     await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
 
+    await ffmpeg.run(
+        "-i", 
+        "recording.webm", 
+        "-ss", 
+        "00:00:01", 
+        "-frames:v", 
+        "1", 
+        "thumbnail.jpg"
+        );
+
     const mp4File = ffmpeg.FS("readFile", "output.mp4");
+    const thumbnail = ffmpeg.FS("readFile", "thumbnail.jpg");
 
     const mp4Blob = new Blob([mp4File.buffer], {type:"video/mp4"});
+    const thumbnailBlob = new Blob([thumbnail.buffer], {type:"image/jpg"});
 
     const mp4Url = URL.createObjectURL(mp4Blob);
+    const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
 
     const a = document.createElement("a");
     a.href = mp4Url;
     a.download = "MyRecording.mp4";
     document.body.appendChild(a);
     a.click();
+
+    const thumbnailA = document.createElement("a");
+    thumbnailA.href = thumbnailUrl;
+    thumbnailA.download = "MyThumbnail.jpg";
+    document.body.appendChild(thumbnailA);
+    thumbnailA.click();
+
     startBtn.innerText = "Start Recording";
     startBtn.removeEventListener("click", handleDownload);
     startBtn.addEventListener("click", handleStart);
