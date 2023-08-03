@@ -6,11 +6,9 @@ const deleteComment = async (event) => {
     const commentId = event.target.parentElement.dataset.id;
     const {status} = await fetch(`/api/comment/${commentId}/delete`, {method:"DELETE"});
     if(status === 200){
-        window.location.reload();
+        const delElement = event.target.parentElement;
+        delElement.remove();
     }
-    // const delElement = event.target.parentElement.innerHTML;
-    // const comments = document.querySelector('.video__comments');
-    // document.querySelector('.video__comments').innerHTML = document.querySelector('.video__comments').innerHTML.replace(delElement.innerHTML, '')
 };
 
 const addComment = (text, id) => {
