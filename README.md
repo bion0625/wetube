@@ -1,19 +1,12 @@
-# Wetube Reloaded
+# Wetube-bion
 
-/ -> Home
-/join -> Join
-/login -> Login
-/search -> Search
+fly.io
+flyctl launch
 
+env 세팅
+flyctl secrets set key=value
+env 세팅 제거
+flyctl secrets unset key
 
-/users/:id -> See Profile
-/users/logout -> Log Out
-/users/:id/edit -> Egit My Profile
-/users/delete -> Delete My Profile
-
-
-/videos/:id -> See Video
-/videos/:id/edit -> Edit Video
-/videos/:id/delete -> Delete Video
-/video/upload -> Upload Video
-/videos/delete -> Delete Video
+배포
+flyctl deploy
