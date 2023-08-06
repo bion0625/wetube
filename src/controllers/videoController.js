@@ -66,11 +66,12 @@ export const postUpload = async (req, res) => {
         }
     } = req;
     try{
+        const isFly = res.locals.isFly;
         const newVideo = await Video.create({
             title,
             description,
-            fileUrl: video[0].location,
-            thumbUrl: thumb[0].location,
+            fileUrl: isFly ? video[0].location : '/'+video[0].path,
+            thumbUrl: isFly ? thumb[0].location : '/'+thumb[0].path,
             hashtags: Video.formatHashtags(hashtags),
             owner:_id
         });

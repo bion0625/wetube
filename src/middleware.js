@@ -9,6 +9,8 @@ const s3 = new aws.S3({
     }
 })
 
+const isFly = process.env.NODE_ENV === 'production';
+
 const s3ImageUploader = multerS3({
     s3: s3,
     bucket: 'bion-wetube/images',
@@ -28,6 +30,7 @@ export const localsMiddleware = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.siteName = "Wetube";
     res.locals.loggedInUser = req.session.user || {};
+    res.locals.isFly = isFly;
     next();
 };
 
@@ -54,12 +57,12 @@ export const avatarUpload = multer({
     limits:{
         fileSize:300000
     },
-    storage: s3ImageUploader,
+    storage: isFly ? s3ImageUploader : undefined,
 });
 export const videoUpload = multer({
     dest:"uploads/videos/", 
     limits:{
         fileSize:100000000
     },
-    storage: s3VideoUploader,
+    storage: isFly ? s3VideoUploader : undefined,
 });

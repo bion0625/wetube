@@ -131,10 +131,11 @@ export const postEdit = async (req, res) => {
         file,
     } = req;
     try{
+        const isFly = res.locals.isFly;
         const updatedUser = await User.findByIdAndUpdate(
         _id, 
         {
-            avatarUrl:file ? file.location : avatarUrl,
+            avatarUrl:file ? (isFly ? file.location : '/'+file.path) : avatarUrl,
             name, 
             email, 
             username, 
