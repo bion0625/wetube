@@ -10,6 +10,7 @@ const s3 = new aws.S3({
 })
 
 const isFly = process.env.NODE_ENV === 'production';
+// NODE_ENV=production ==> 서버에 자동설정
 
 const s3ImageUploader = multerS3({
     s3: s3,
